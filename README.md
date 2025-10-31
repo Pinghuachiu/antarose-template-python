@@ -2,326 +2,317 @@
 
 A production-ready full-stack template featuring FastAPI + Python backend and Next.js 15 frontend.
 
-## Overview
+[![Python](https://img.shields.io/badge/Python-3.12%2B-blue)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115.5-green)](https://fastapi.tiangolo.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.5-black)](https://nextjs.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-This template provides a solid foundation for building modern web applications with:
+## 📋 目錄
 
-- **Backend**: FastAPI + Python 3.13 API server
-- **Frontend**: Next.js 15 + React 19 + Tailwind CSS + shadcn/ui
-- **Architecture**: Separate frontend/backend (no monorepo)
-- **Development**: Hot reload, Type hints, Linting
-- **Production**: Optimized builds, security headers, async support
+- [概述](#概述)
+- [快速開始](#快速開始)
+- [專案結構](#專案結構)
+- [後端 (FastAPI)](#後端-fastapi)
+- [前端 (Next.js)](#前端-nextjs)
+- [開發工作流程](#開發工作流程)
+- [生產環境部署](#生產環境部署)
+- [疑難排解](#疑難排解)
 
-## Quick Start
+---
 
-### Using Bootstrap Script (Recommended) 🚀
+## 概述
 
-Create a new project from this template with a single command:
+此模板提供建構現代化 Web 應用程式的堅實基礎：
+
+### ✨ 核心技術
+
+**後端 (Backend)**
+- **FastAPI** - 現代、快速的 Python Web 框架
+- **Python 3.13** - 最新穩定版本
+- **SQLAlchemy** - 非同步資料庫 ORM
+- **Pydantic** - 資料驗證與設定管理
+- **Uvicorn** - ASGI 伺服器
+
+**前端 (Frontend)**
+- **Next.js 15** - React 框架 (App Router)
+- **React 19** - 使用者介面函式庫
+- **Tailwind CSS** - Utility-first CSS 框架
+- **shadcn/ui** - 高品質元件庫
+- **TypeScript** - 型別安全
+
+### 🎯 功能特色
+
+- ✅ **前後端分離架構** - 獨立開發與部署
+- ✅ **非同步資料庫支援** - SQLite / PostgreSQL / MySQL
+- ✅ **自動 API 文檔** - Swagger UI / ReDoc
+- ✅ **型別安全** - Python Type Hints + TypeScript
+- ✅ **熱重載開發** - 即時預覽變更
+- ✅ **測試框架** - pytest (後端) + Jest (前端)
+- ✅ **一鍵專案初始化** - 自動化腳本
+
+---
+
+## 快速開始
+
+### 方式一：使用初始化腳本 (推薦) 🚀
+
+**下載並執行腳本：**
 
 ```bash
-# Method 1: Download and run locally
+# 方法 1: 下載後執行
 curl -O https://raw.githubusercontent.com/Pinghuachiu/antarose-template-python/main/anta-python.sh
 chmod +x anta-python.sh
 ./anta-python.sh my-awesome-project
 
-# Method 2: Direct execution (one-liner)
+# 方法 2: 直接執行 (一行命令)
 curl -fsSL https://raw.githubusercontent.com/Pinghuachiu/antarose-template-python/main/anta-python.sh | bash -s my-awesome-project
 ```
 
-**Interactive Configuration:**
+**腳本會自動執行以下操作：**
 
-The script will guide you through setup with these prompts:
+| 步驟 | 說明 |
+|------|------|
+| ✅ 環境檢查 | 驗證 Git, Python 3.12+, uv, Node.js, npm 是否安裝 |
+| ✅ Clone 模板 | 從 GitHub 複製最新版本 |
+| ✅ 清理檔案 | 移除 .git 歷史記錄和模板專用檔案 |
+| ✅ 更新配置 | 修改專案名稱、描述、作者資訊 |
+| ✅ 建立虛擬環境 | 使用 uv 建立 Python 虛擬環境 |
+| ✅ 安裝依賴 | 安裝前後端所需套件 (可選) |
+| ✅ 初始化 Git | 建立新的 Git repository |
 
-| Prompt | Default Value | Required |
-|--------|--------------|----------|
-| Project description | "A Python project built with Antarose Template" | No |
-| Author | jackalchiu@antarose.com | No |
-| GitHub repository URL | (skip) | No |
-| Install dependencies? | Yes | No |
+**互動式設定：**
 
-**What the script does automatically:**
+```
+? Project description: (預設: A Python project built with Antarose Template)
+? Author: (預設: jackalchiu@antarose.com)
+? GitHub repository URL: (可選，直接按 Enter 跳過)
+? Install dependencies now?: (Y/n)
+```
 
-- ✅ **Validates environment** (Git, Python 3.12+, uv installed)
-- ✅ **Clones template** from this repository
-- ✅ **Validates project name** (Python package naming rules)
-- ✅ **Removes template Git history** (.git/ directory)
-- ✅ **Cleans up files** (removes docs/specs/, keeps docs/architecture/)
-- ✅ **Updates configuration**:
-  - `frontend/package.json` - name, description, author, version
-  - `backend/requirements.txt` - project metadata
-  - `README.md` - project name
-- ✅ **Creates virtual environment** (using uv)
-- ✅ **Installs dependencies** (frontend + backend)
-- ✅ **Initializes new Git repository** with initial commit
-- ✅ **Sets up Git remote** (if provided)
+### 方式二：手動安裝
 
-**Requirements:**
-- ✅ Project name must be lowercase (a-z, 0-9, -, _)
-- ✅ Max 214 characters
-- ✅ Cannot start with `.` or `_`
-
-### Manual Setup
-
-### Prerequisites
-
-- Python 3.12 or higher
-- uv (Python package manager)
-- Node.js 18 or higher (for frontend)
-- npm or yarn (for frontend)
-
-### Full Stack Setup
+#### 1. Clone Repository
 
 ```bash
-# Install backend dependencies
+git clone https://github.com/Pinghuachiu/antarose-template-python.git my-project
+cd my-project
+rm -rf .git
+git init
+```
+
+#### 2. 安裝依賴
+
+**後端：**
+```bash
 cd backend
 uv venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 uv pip install -r requirements.txt
+```
 
-# Install frontend dependencies
-cd ../frontend
+**前端：**
+```bash
+cd frontend
 npm install
 ```
 
-### Start Development Servers
+#### 3. 啟動開發伺服器
 
-**Terminal 1 - Backend:**
+**Terminal 1 - 後端 (Port 3030):**
 ```bash
 cd backend
 source .venv/bin/activate
-uvicorn src.main:app --reload --port 4000
-# Runs on http://localhost:4000
+uvicorn src.main:app --reload --port 3030
 ```
 
-**Terminal 2 - Frontend:**
+**Terminal 2 - 前端 (Port 3000):**
 ```bash
 cd frontend
 npm run dev
-# Runs on http://localhost:3000
 ```
 
-## Project Structure
+#### 4. 訪問應用
+
+- 🌐 **前端**: http://localhost:3000
+- 🔌 **後端 API**: http://localhost:3030
+- 📚 **API 文檔 (Swagger)**: http://localhost:3030/docs
+- 📖 **API 文檔 (ReDoc)**: http://localhost:3030/redoc
+- ❤️ **健康檢查**: http://localhost:3030/health
+
+---
+
+## 專案結構
 
 ```
 antarose-template-python/
-├── backend/                  # FastAPI server
-│   ├── .venv/               # Virtual environment
+├── backend/                  # FastAPI 後端
+│   ├── .venv/               # Python 虛擬環境
 │   ├── src/
-│   │   ├── main.py          # Application entry point
-│   │   ├── core/            # Core configurations
-│   │   ├── middlewares/     # Custom middlewares
-│   │   └── routes/          # API endpoints
-│   └── requirements.txt     # Python dependencies
-├── frontend/                 # Next.js application
-│   ├── app/                 # Next.js App Router
-│   ├── components/          # React components
-│   ├── lib/                 # Utilities
+│   │   ├── main.py          # 應用程式入口
+│   │   ├── core/
+│   │   │   ├── config.py    # 配置管理
+│   │   │   └── database.py  # 資料庫連接
+│   │   ├── models/          # SQLAlchemy 模型
+│   │   │   └── user.py      # 使用者模型範例
+│   │   ├── schemas/         # Pydantic schemas
+│   │   ├── middlewares/     # 自訂中介軟體
+│   │   │   ├── logger.py
+│   │   │   └── error_handler.py
+│   │   └── routes/          # API 路由
+│   │       ├── health.py
+│   │       ├── hello.py
+│   │       └── error_example.py
+│   ├── requirements.txt     # Python 依賴
+│   ├── .env.example        # 環境變數範本
+│   └── README.md
+│
+├── frontend/                 # Next.js 前端
+│   ├── app/                 # App Router
+│   │   ├── layout.tsx       # 根佈局
+│   │   ├── page.tsx         # 首頁
+│   │   ├── about/           # About 頁面
+│   │   ├── error.tsx        # 錯誤邊界
+│   │   └── not-found.tsx    # 404 頁面
+│   ├── components/          # React 元件
+│   │   ├── ui/              # shadcn/ui 元件
+│   │   └── layout/          # 佈局元件
+│   ├── lib/
+│   │   ├── utils.ts         # 工具函數
+│   │   └── api-client.ts    # API 客戶端
 │   ├── package.json
-│   └── tsconfig.json
-├── docs/                     # Documentation
-└── README.md                # This file
+│   ├── .env.local          # 前端環境變數
+│   └── README.md
+│
+├── docs/                     # 文檔
+│   └── architecture/        # 架構文件
+├── anta-python.sh           # 專案初始化腳本
+├── README.md                # 此檔案
+└── .gitignore
 ```
 
-## Backend
+---
 
-### Technology Stack
+## 後端 (FastAPI)
 
-- **Framework**: FastAPI
-- **Language**: Python 3.13
-- **ASGI Server**: Uvicorn
-- **Security**: Built-in CORS and security headers
-- **Validation**: Pydantic models
+### 技術棧
 
-### Starting the Backend
+| 技術 | 版本 | 用途 |
+|------|------|------|
+| FastAPI | 0.115.5 | Web 框架 |
+| Uvicorn | 0.34.0 | ASGI 伺服器 |
+| SQLAlchemy | 2.0.36 | ORM |
+| Pydantic | 2.10.3 | 資料驗證 |
+| pytest | 8.3.4 | 測試框架 |
 
-```bash
-cd backend
-source .venv/bin/activate    # Activate virtual environment
-uvicorn src.main:app --reload --port 4000  # Development mode
-uvicorn src.main:app --port 4000           # Production mode
-```
+### API 端點
 
-### API Endpoints
+| 方法 | 路徑 | 說明 |
+|------|------|------|
+| GET | `/` | 根端點 |
+| GET | `/health` | 健康檢查 |
+| GET | `/api/hello` | Hello World 範例 |
+| GET | `/api/hello/{name}` | 個人化問候 |
+| GET | `/api/error/400` | 錯誤處理範例 (400) |
+| GET | `/api/error/404` | 錯誤處理範例 (404) |
+| GET | `/api/error/500` | 錯誤處理範例 (500) |
+| GET | `/docs` | Swagger UI |
+| GET | `/redoc` | ReDoc 文檔 |
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/health` | Health check |
-| GET | `/api/hello` | Example API |
-| GET | `/api/error/{error_type}` | Error handling examples |
-| GET | `/docs` | Interactive API documentation (Swagger UI) |
-| GET | `/redoc` | Alternative API documentation (ReDoc) |
+### 環境變數設定
 
-### Backend Project Structure
-
-```
-backend/
-├── src/
-│   ├── main.py               # App entry point
-│   ├── core/
-│   │   ├── config.py         # Configuration settings
-│   │   └── __init__.py
-│   ├── middlewares/
-│   │   ├── logger.py         # Request logging
-│   │   ├── error_handler.py  # Error handling
-│   │   └── __init__.py
-│   └── routes/
-│       ├── health.py         # Health check
-│       ├── hello.py          # Example endpoint
-│       ├── error_example.py  # Error examples
-│       └── __init__.py
-├── .venv/                    # Virtual environment
-└── requirements.txt          # Dependencies
-```
-
-### Environment Variables (Backend)
-
-Create `backend/.env`:
+建立 `backend/.env` 檔案：
 
 ```env
-PORT=4000
+# 應用程式設定
+APP_NAME=Antarose Template API
+APP_VERSION=1.0.0
 ENVIRONMENT=development
+
+# 伺服器設定
+PORT=3030
+HOST=0.0.0.0
+
+# CORS 設定
 CORS_ORIGINS=["http://localhost:3000"]
+
+# 資料庫設定
+DATABASE_URL=sqlite+aiosqlite:///./app.db
 ```
 
-### Adding New API Endpoints
+### 新增 API 端點
 
-1. Create route handler in `backend/src/routes/`
-2. Import and register in `backend/src/main.py`
-3. Test with curl or frontend
-
-Example:
+1. **建立路由檔案** `backend/src/routes/users.py`:
 
 ```python
-# backend/src/routes/users.py
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+from src.core.database import get_db
 
-router = APIRouter(prefix="/api/users", tags=["users"])
+router = APIRouter(prefix="/api/users", tags=["Users"])
 
 @router.get("/")
-async def get_users():
+async def get_users(db: AsyncSession = Depends(get_db)):
     return {"users": []}
 ```
 
-For detailed backend documentation, see [backend/README.md](./backend/README.md).
+2. **註冊路由** 在 `backend/src/main.py`:
 
-## Frontend
+```python
+from src.routes import users
 
-### Technology Stack
+app.include_router(users.router)
+```
 
-- **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript
-- **UI Library**: React 19
-- **Styling**: Tailwind CSS
-- **Components**: shadcn/ui
-- **Icons**: Lucide React
+### 資料庫操作
 
-### Starting the Frontend
+**建立模型** `backend/src/models/post.py`:
+
+```python
+from sqlalchemy import String, Text, DateTime
+from sqlalchemy.orm import Mapped, mapped_column
+from datetime import datetime
+from src.core.database import Base
+
+class Post(Base):
+    __tablename__ = "posts"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    title: Mapped[str] = mapped_column(String(200))
+    content: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+```
+
+### 執行測試
 
 ```bash
-cd frontend
-npm install
-npm run dev      # Development mode (port 3000)
-npm run build    # Production build
-npm start        # Production mode
+cd backend
+source .venv/bin/activate
+pytest
 ```
 
-### Features
+---
 
-- ✅ Next.js 15 with App Router
-- ✅ TypeScript strict mode
-- ✅ Tailwind CSS configured
-- ✅ shadcn/ui components
-- ✅ Responsive header/footer
-- ✅ Error boundary and 404 page
-- ✅ ESLint and Prettier
+## 前端 (Next.js)
 
-### Frontend Project Structure
+### 技術棧
 
-```
-frontend/
-├── app/                      # Next.js App Router
-│   ├── about/page.tsx       # About page
-│   ├── layout.tsx           # Root layout
-│   ├── page.tsx             # Home page
-│   ├── error.tsx            # Error boundary
-│   ├── not-found.tsx        # 404 page
-│   └── globals.css          # Global styles
-├── components/
-│   ├── ui/                  # shadcn/ui components
-│   └── layout/              # Layout components
-└── lib/
-    └── utils.ts             # Utilities
-```
+| 技術 | 版本 | 用途 |
+|------|------|------|
+| Next.js | 15.5.6 | React 框架 |
+| React | 19 | UI 函式庫 |
+| TypeScript | 5.x | 型別系統 |
+| Tailwind CSS | 3.x | CSS 框架 |
+| shadcn/ui | Latest | 元件庫 |
 
-### Environment Variables (Frontend)
+### 環境變數設定
 
-Create `frontend/.env.local`:
+建立 `frontend/.env.local` 檔案：
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:4000
+NEXT_PUBLIC_API_URL=http://localhost:3030
 ```
 
-### Adding New Pages
-
-Create `frontend/app/[pagename]/page.tsx`:
-
-```tsx
-export default function NewPage() {
-  return <div>New Page</div>
-}
-```
-
-For detailed frontend documentation, see [frontend/README.md](./frontend/README.md).
-
-## Development Workflow
-
-### 1. Start Both Servers
-
-```bash
-# Terminal 1 - Backend
-cd backend
-source .venv/bin/activate
-uvicorn src.main:app --reload --port 4000
-
-# Terminal 2 - Frontend
-cd frontend && npm run dev
-```
-
-### 2. Access Application
-
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:4000
-- API Docs (Swagger): http://localhost:4000/docs
-- API Docs (ReDoc): http://localhost:4000/redoc
-- Health Check: http://localhost:4000/health
-
-### 3. Make Changes
-
-- Backend changes auto-reload via Uvicorn `--reload`
-- Frontend changes auto-reload via Next.js Fast Refresh
-
-## Production Build
-
-### Build Backend
-
-```bash
-cd backend
-source .venv/bin/activate
-# No build step needed for Python
-uvicorn src.main:app --host 0.0.0.0 --port 4000
-```
-
-### Build Frontend
-
-```bash
-cd frontend
-npm run build    # Creates optimized production build
-npm start        # Starts production server
-```
-
-## API Integration
-
-### Frontend Calling Backend
+### API 整合範例
 
 ```typescript
 // frontend/app/example/page.tsx
@@ -333,7 +324,7 @@ export default function ExamplePage() {
   const [data, setData] = useState(null)
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/hello')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hello`)
       .then(res => res.json())
       .then(setData)
   }, [])
@@ -342,79 +333,140 @@ export default function ExamplePage() {
 }
 ```
 
-## Code Quality
+### 新增頁面
 
-### Backend
+建立 `frontend/app/users/page.tsx`:
+
+```tsx
+export default function UsersPage() {
+  return (
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold">Users</h1>
+    </div>
+  )
+}
+```
+
+---
+
+## 開發工作流程
+
+### Git Flow 分支策略
+
+```
+main          (生產環境)
+  └── develop (開發環境)
+        └── feature/feature-name (功能開發)
+        └── bugfix/bug-name (錯誤修復)
+```
+
+### 開發流程
+
+1. **建立功能分支**
+```bash
+git checkout develop
+git checkout -b feature/new-feature
+```
+
+2. **開發與測試**
+```bash
+# 後端測試
+cd backend && pytest
+
+# 前端測試
+cd frontend && npm run lint
+```
+
+3. **提交變更**
+```bash
+git add .
+git commit -m "feat: add new feature"
+```
+
+4. **合併回 develop**
+```bash
+git checkout develop
+git merge --no-ff feature/new-feature
+git push origin develop
+```
+
+5. **發布到 main**
+```bash
+git checkout main
+git merge --no-ff develop
+git tag -a v1.x.x -m "Release v1.x.x"
+git push origin main --tags
+```
+
+---
+
+## 生產環境部署
+
+### 後端部署
+
+**使用 Gunicorn + Uvicorn workers:**
 
 ```bash
 cd backend
 source .venv/bin/activate
-# Linting (if configured)
-ruff check .
-# Formatting
-black .
-# Type checking
-mypy src/
+gunicorn src.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:3030
 ```
 
-### Frontend
+**使用 Docker:**
+
+```dockerfile
+FROM python:3.13-slim
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY src/ ./src/
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "3030"]
+```
+
+### 前端部署
 
 ```bash
 cd frontend
-npm run lint      # Next.js ESLint
+npm run build
+npm start
 ```
 
-## Security Features
+---
 
-### Backend
-- FastAPI built-in security features
-- CORS configuration
-- Pydantic data validation
-- Async support for better performance
+## 疑難排解
 
-### Frontend
-- Next.js security defaults
-- Environment variable protection
-- CSP headers (configurable)
+### Port 已被佔用
 
-## Performance Optimizations
-
-### Backend
-- Async/await support
-- Efficient routing
-- Automatic API documentation
-- Built-in data validation
-
-### Frontend
-- Next.js automatic code splitting
-- Image optimization
-- Static generation (SSG)
-- Incremental static regeneration (ISR)
-
-## Troubleshooting
-
-### Port Already in Use
-
-**Backend (port 4000):**
 ```bash
-lsof -ti:4000 | xargs kill -9
-```
+# 檢查 Port 3030 (後端)
+lsof -ti:3030 | xargs kill -9
 
-**Frontend (port 3000):**
-```bash
+# 檢查 Port 3000 (前端)
 lsof -ti:3000 | xargs kill -9
 ```
 
-### CORS Errors
+### CORS 錯誤
 
-1. Check `backend/.env` has correct `CORS_ORIGINS`
-2. Verify frontend is running on allowed origin
-3. Check browser console for specific error
+1. 檢查 `backend/.env` 中的 `CORS_ORIGINS`
+2. 確認前端 URL 在允許列表中
+3. 檢查瀏覽器主控台的具體錯誤訊息
 
-### Virtual Environment Issues
+### 資料庫連接失敗
 
-**Recreate virtual environment:**
 ```bash
+# 重新建立資料庫
+cd backend
+rm -f app.db
+source .venv/bin/activate
+python -c "from src.core.database import init_db; import asyncio; asyncio.run(init_db())"
+```
+
+### 虛擬環境問題
+
+```bash
+# 重建虛擬環境
 cd backend
 rm -rf .venv
 uv venv
@@ -422,37 +474,62 @@ source .venv/bin/activate
 uv pip install -r requirements.txt
 ```
 
-## Documentation
+### 前端建置錯誤
 
-- [Backend Documentation](./backend/README.md) - API server details
-- [Frontend Documentation](./frontend/README.md) - Next.js app details
-- [Technical Docs](./docs/) - Architecture and design documents
+```bash
+cd frontend
+rm -rf .next node_modules
+npm install
+npm run build
+```
 
-## Technology References
+---
 
-### Backend
-- [FastAPI Documentation](https://fastapi.tiangolo.com/)
-- [Python Documentation](https://docs.python.org/3/)
-- [Uvicorn Documentation](https://www.uvicorn.org/)
-- [Pydantic Documentation](https://docs.pydantic.dev/)
+## 文檔資源
 
-### Frontend
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React Documentation](https://react.dev/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [shadcn/ui Documentation](https://ui.shadcn.com)
+### 後端文檔
+- [FastAPI 官方文檔](https://fastapi.tiangolo.com/)
+- [SQLAlchemy 文檔](https://docs.sqlalchemy.org/)
+- [Pydantic 文檔](https://docs.pydantic.dev/)
+- [Uvicorn 文檔](https://www.uvicorn.org/)
 
-## License
+### 前端文檔
+- [Next.js 文檔](https://nextjs.org/docs)
+- [React 文檔](https://react.dev/)
+- [Tailwind CSS 文檔](https://tailwindcss.com/docs)
+- [shadcn/ui 文檔](https://ui.shadcn.com)
 
-MIT
+### 專案文檔
+- [後端詳細文檔](./backend/README.md)
+- [前端詳細文檔](./frontend/README.md)
+- [架構文件](./docs/architecture/)
 
-## Contributing
+---
 
-This is a template repository. Feel free to customize for your project needs.
+## 授權條款
 
-## Support
+MIT License - 詳見 [LICENSE](LICENSE) 檔案
 
-For issues and questions:
-1. Check documentation in `docs/` directory
-2. Review component-specific README files
-3. Consult technology-specific documentation linked above
+---
+
+## 貢獻指南
+
+歡迎提交 Issue 和 Pull Request！
+
+1. Fork 此專案
+2. 建立功能分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交變更 (`git commit -m 'feat: Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 開啟 Pull Request
+
+---
+
+## 支援與反饋
+
+- 📧 Email: jackalchiu@antarose.com
+- 🐛 Issues: [GitHub Issues](https://github.com/Pinghuachiu/antarose-template-python/issues)
+- 📚 Docs: [Documentation](./docs/)
+
+---
+
+**由 Antarose AI Tech Inc. 用心打造** ❤️
