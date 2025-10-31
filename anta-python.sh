@@ -449,18 +449,18 @@ print_next_steps() {
     echo -e "  ${CYAN}cd ${PROJECT_NAME}${NC}"
     echo ""
     echo -e "${BOLD}Start development servers:${NC}"
-    echo -e "  ${CYAN}# Terminal 1 - Backend (http://localhost:4000)${NC}"
+    echo -e "  ${CYAN}# Terminal 1 - Backend (http://localhost:3030)${NC}"
     echo -e "  ${CYAN}cd backend${NC}"
     echo -e "  ${CYAN}source .venv/bin/activate  # On Windows: .venv\\Scripts\\activate${NC}"
-    echo -e "  ${CYAN}uvicorn src.main:app --reload --port 4000${NC}"
+    echo -e "  ${CYAN}uvicorn src.main:app --reload --port 3030${NC}"
     echo ""
     echo -e "  ${CYAN}# Terminal 2 - Frontend (http://localhost:3000)${NC}"
     echo -e "  ${CYAN}cd frontend && npm run dev${NC}"
     echo ""
 
     echo -e "${BOLD}API Documentation:${NC}"
-    echo -e "  ${CYAN}http://localhost:4000/docs${NC}  - Swagger UI"
-    echo -e "  ${CYAN}http://localhost:4000/redoc${NC} - ReDoc"
+    echo -e "  ${CYAN}http://localhost:3030/docs${NC}  - Swagger UI"
+    echo -e "  ${CYAN}http://localhost:3030/redoc${NC} - ReDoc"
     echo ""
 
     if [[ -n "${CONFIG_REPO_URL}" ]]; then
