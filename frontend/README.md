@@ -116,7 +116,7 @@ npx shadcn-ui@latest add form
 Create a `.env.local` file:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:4000
+NEXT_PUBLIC_API_URL=http://localhost:3030
 ```
 
 ## Learn More

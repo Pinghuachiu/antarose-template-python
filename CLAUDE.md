@@ -516,11 +516,10 @@ say 'Phase completed, please conduct acceptance' && osascript -e 'display notifi
 ### Standard Port Allocation
 
 **Web Application Standard Ports**:
-- **Frontend**: **Port 5050**
-- **Backend API**: **Port 3030** (本專案為純後端服務)
+- **Frontend**: **Port 3000** (Next.js 預設 port)
+- **Backend API**: **Port 3030**
 
 **Prohibited Port Ranges**:
-- ❌ **3000-3007** - Avoid conflicts with Next.js default port
 - ❌ **4000-4007** - Avoid conflicts with common backend frameworks
 - ❌ **8000-8080** - Avoid conflicts with development tools
 
@@ -534,15 +533,19 @@ say 'Phase completed, please conduct acceptance' && osascript -e 'display notifi
 **Frontend Configuration** (如適用):
 
 - **Environment Variables**: `NEXT_PUBLIC_API_URL=http://localhost:3030`
-- **Package.json**: `"dev": "next dev -p 5050"`
+- **Package.json**: `"dev": "next dev"` (使用預設 Port 3000)
 
 ### Port Conflict Resolution
 
 ```bash
-# Check if Port is occupied
+# 檢查前端 Port 是否被占用
+lsof -ti:3000
+
+# 檢查後端 Port 是否被占用
 lsof -ti:3030
 
-# Clear conflicting Ports
+# 清除衝突的 Ports
+lsof -ti:3000 | xargs kill -9
 lsof -ti:3030 | xargs kill -9
 ```
 
