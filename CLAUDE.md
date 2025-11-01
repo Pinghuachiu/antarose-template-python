@@ -34,6 +34,45 @@ Keep this managed block so 'openspec update' can refresh the instructions.
 
 **Purpose**: **Ensure ZERO bugs before showing to client. NO debugging in front of client.**
 
+### 🔄 MANDATORY: Regression Testing Loop
+
+**CRITICAL REQUIREMENT**: Every bug fix MUST trigger a complete regression test cycle.
+
+**Regression Testing Protocol**:
+
+1. **When Bug is Discovered** → CTO MUST immediately:
+   - 🐛 Record bug in issue tracker
+   - 👥 Delegate to appropriate team member (Sharon for backend bugs)
+   - 📋 Update bug tracking list
+
+2. **When Bug is Fixed** → QA Team (Lucia/Ann) MUST:
+   - ✅ Build regression test for the fixed bug
+   - ✅ Execute ALL existing E2E tests (not just the new one)
+   - ✅ Verify no new bugs were introduced
+   - ✅ Report test results to CTO
+
+3. **If Regression Test Finds New Bugs** → MUST:
+   - 🔁 Return to Step 1 (record, delegate, fix)
+   - 🔁 Execute regression tests again
+   - 🔁 Repeat until ALL tests pass with ZERO bugs
+
+4. **Only When Zero Bugs** → CTO MAY:
+   - ✅ Mark Pre E2E Demo as complete
+   - ✅ Proceed to client E2E Demo
+
+**Enforcement**:
+- ❌ **NEVER** skip regression tests after bug fixes
+- ❌ **NEVER** declare "bug fixed" without regression test verification
+- ✅ **MUST** have automated regression test suite (pytest)
+- ✅ **MUST** execute full regression test suite after each fix
+- ✅ **MUST** document all bugs and fixes in Bug Tracking Report
+
+**QA Team Responsibilities**:
+- Lucia/Ann MUST build regression test for each discovered bug
+- Lucia/Ann MUST execute full test suite after each fix
+- Lucia/Ann MUST report: Pass/Fail count, new bugs discovered
+- If ANY test fails → MUST fix and retest (循環直到零錯誤)
+
 ## Phase 2: E2E Demo (Client-Facing)
 
 **CTO MUST personally execute complete E2E Demo for client - MUST be flawless.**
@@ -478,7 +517,7 @@ say 'Phase completed, please conduct acceptance' && osascript -e 'display notifi
 
 **Web Application Standard Ports**:
 - **Frontend**: **Port 5050**
-- **Backend API**: **Port 5060**
+- **Backend API**: **Port 3030** (本專案為純後端服務)
 
 **Prohibited Port Ranges**:
 - ❌ **3000-3007** - Avoid conflicts with Next.js default port
@@ -489,23 +528,22 @@ say 'Phase completed, please conduct acceptance' && osascript -e 'display notifi
 
 **Backend Configuration**:
 
-- **Environment Variables** (`.env.local`, `.env.production.example`): `PORT=5060`
-- **PM2 Configuration** (`ecosystem.config.js`): `env: { PORT: 5060 }`
+- **Environment Variables** (`.env`, `.env.example`): `PORT=3030`
+- **PM2 Configuration** (`ecosystem.config.js`): `env: { PORT: 3030 }`
 
-**Frontend Configuration**:
+**Frontend Configuration** (如適用):
 
-- **Environment Variables**: `NEXT_PUBLIC_API_URL=http://localhost:5060`
+- **Environment Variables**: `NEXT_PUBLIC_API_URL=http://localhost:3030`
 - **Package.json**: `"dev": "next dev -p 5050"`
 
 ### Port Conflict Resolution
 
 ```bash
 # Check if Port is occupied
-lsof -ti:5050 -ti:5060
+lsof -ti:3030
 
 # Clear conflicting Ports
-lsof -ti:5050 | xargs kill -9
-lsof -ti:5060 | xargs kill -9
+lsof -ti:3030 | xargs kill -9
 ```
 
 **Enforcement**: All team members MUST configure standard Ports during project initialization.
